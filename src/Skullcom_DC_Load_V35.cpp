@@ -163,6 +163,42 @@ void isr()
   }
     }
 
+//------------------------Declare all functions in advance... for strict CPP rles---------------------
+
+void readKeypadInput (void);
+void maxConstantCurrentSetting (void);
+void powerLevelCutOff (void);
+void batteryCurrentLimitValue (void);
+void displayEncoderReading (void);
+void CursorPosition(void);
+void readVoltageCurrent (void);
+void ActualReading(void);
+void dacControlVoltage (void);
+void batteryCapacity (void);
+void fanControl (void);
+void LoadSwitch(void);
+void Current(void);
+void Power(void);
+void Resistance(void);
+void BatteryCapacity(void);
+void batteryType (void);
+void dacControl (void);
+void batteryTypeSelected (void);
+void setBatteryCutOff (void);
+void inputValue (void);
+void transientMode (void);
+void transientType (void);
+void transient (void);
+void transientListSetup();
+void transientLoadToggle();
+void transientSwitch(float current_setting, boolean toggle_status);
+void userSetUp (void);
+void temperatureCutOff (void);
+void setupLimits (void);
+void currentDisplayCal (void);
+
+
+
 //---------------------------------Initial Set up---------------------------------------
 void setup() {
   Serial.begin(9600);                                      //used for testing only
@@ -210,7 +246,7 @@ void setup() {
   setupLimits();
   delay(3000);
   lcd.clear();
-  
+
   last_time = 0;                                           //set the last_time to 0 at the start (Transicent Mode)
   transient_mode_status = false;                           //set the initial transient mode status (false = low, true = high);
   setCurrent = LowCurrent;                                 //first set the current to the low current value (Transicent Mode)
@@ -269,14 +305,9 @@ void loop() {
 void readKeypadInput (void) {
   customKey = customKeypad.getKey();
 
-//  if (customKey != NO_KEY){                             //only used for testing keypad (uncomment if required for testing keypad)
-// Serial.print("customKey = ");                          //only used for testing keypad (uncomment if required for testing keypad)
-// Serial.println(customKey);                             //only used for testing keypad (uncomment if required for testing keypad)
-//  }                                                     //only used for testing keypad (uncomment if required for testing keypad)
-
-if(customKey == 'E'){                                     //check for Load on/off
-  LoadSwitch();
-}
+  if(customKey == 'E'){                                     //check for Load on/off
+    LoadSwitch();
+  }
 
   if(customKey == 'D'){                                   //check if Set-Up Mode Selected
   delay(200);

@@ -18,6 +18,9 @@
 const byte ROWS = 5;                          //five rows
 const byte COLS = 4;                          //four columns
 
+byte(rowPins[ROWS]) = {9, 10, 11, 12, 14}; //connect to the row pin outs of the keypad
+byte(colPins[COLS]) = {5, 6, 7, 8}; //connect to the column pin outs of the keypad
+
 //define the symbols on the buttons of the keypads
 char hexaKeys[ROWS][COLS] = {
   {'<','0','>','F'},
@@ -26,15 +29,11 @@ char hexaKeys[ROWS][COLS] = {
   {'1','2','3','C'},
   {'A','B','#','*'}
 };
-
-byte(rowPins[ROWS]) = {9, 10, 11, 12, 14}; //connect to the row pin outs of the keypad
-byte(colPins[COLS]) = {5, 6, 7, 8}; //connect to the column pin outs of the keypad
+char customKey;
+char decimalPoint;                            //used to test for more than one press of * key (decimal point)
 
 //initialize an instance of class NewKeypad
 Keypad customKeypad = Keypad(makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS);
-char customKey;
-
-char decimalPoint;                            //used to test for more than one press of * key (decimal point)
 
 Adafruit_MCP4725 dac;                         //constructor
 
@@ -100,7 +99,7 @@ float ResistorCutOff = 999;                   //maximum Resistor we want to deal
 float BatteryCurrent;                         //
 float LoadCurrent;                            //
 
-int CurrentCutOff = EEPROM.read(0x00);
+int CurrentCutOff = EEPROM.read(0x00);        // Get saved defaults from eeprom
 int PowerCutOff = EEPROM.read(0x20);
 int tempCutOff = EEPROM.read(0x40);
 
@@ -196,8 +195,6 @@ void userSetUp (void);
 void temperatureCutOff (void);
 void setupLimits (void);
 void currentDisplayCal (void);
-
-
 
 //---------------------------------Initial Set up---------------------------------------
 void setup() {
